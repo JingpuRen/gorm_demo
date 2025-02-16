@@ -20,8 +20,6 @@ func main() {
 	if err != nil {
 		// tip 这段代码还有点不懂
 		panic(err)
-		//fmt.Println("数据库连接异常")
-		//return
 	}
 	defer db.Close()
 
