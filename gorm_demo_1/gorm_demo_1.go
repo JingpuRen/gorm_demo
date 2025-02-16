@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/jinzhu/gorm"
 	// tip 一定要记得引入对应的数据库驱动啊！！！
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -24,9 +25,20 @@ func main() {
 	defer db.Close()
 
 	// tip 创建表，将数据库表的字段和结构体中的字段进行一一对应
-	db.AutoMigrate(&UserInfo{})
+	//db.AutoMigrate(&UserInfo{})
 
-	u1 := UserInfo{1, "JingpuRen", "男", "coding"}
-	db.Create(&u1)
+	// tip 创建数据行
+	//u1 := UserInfo{1, "JingpuRen", "男", "coding"}
+	//db.Create(&u1)
 
+	// tip 查询数据行
+	var u2 UserInfo
+	db.First(&u2)
+	fmt.Println(u2.Name)
+
+	// tip 更新数据行中的某个字段
+	db.Model(&u2).Update("hobby", "跑步")
+
+	// tip 删除数据库中的某行记录
+	db.Delete(&u2)
 }
