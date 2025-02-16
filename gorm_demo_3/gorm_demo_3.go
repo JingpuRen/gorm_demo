@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
@@ -22,18 +23,24 @@ func main() {
 	// tip 第一次代码之后也不用注释掉，第一次负责创建表，之后就负责将数据库表的结构和对应的结构体的结构对应起来了
 	db.Table("new_person").AutoMigrate(&Person{})
 
-	// 插入记录
-	u1 := Person{Name: "sing", Age: 18}
-
-	// tip 这里一定要注意，如果你之前创建表使用Table指定了表名，那么之后我们在创建数据的时候也是要指定表名的！！
-	// tip 这里真的是很容易错的地方！！！
-	db.Table("new_person").Create(&u1)
-
-	u2 := Person{Name: "haha", Age: 20}
-	// tip 此处同理，这里是非常容易错的地方！！！一定要记住要加上Table！！！
-	db.Table("new_person").Create(&u2)
+	//// 插入记录
+	//u1 := Person{Name: "sing", Age: 18}
+	//
+	//// tip 这里一定要注意，如果你之前创建表使用Table指定了表名，那么之后我们在创建数据的时候也是要指定表名的！！
+	//// tip 这里真的是很容易错的地方！！！
+	//db.Table("new_person").Create(&u1)
+	//
+	//u2 := Person{Name: "haha", Age: 20}
+	//// tip 此处同理，这里是非常容易错的地方！！！一定要记住要加上Table！！！
+	//db.Table("new_person").Create(&u2)
 
 	defer db.Close()
 
-	// 查询
+	// todo 查询记录
+	//var person Person
+	person := new(Person) // new是创建这个结构体类型的指针，因此下面就不需要再使用&了！！
+	// tip 1：根据主键查询第一条数据
+	// tip 这里也是同理的，我们也要加上Table
+	db.Table("new_person").First(person)
+	fmt.Print(person.Name)
 }
