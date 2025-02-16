@@ -16,8 +16,8 @@ type UserInfo struct {
 
 func main() {
 	// tip 连接MySQL数据库
-	// todo 这个时区设立的还有问题，后续还待解决
-	db, err := gorm.Open("mysql", "root:666666@(localhost:3306)/db1?charset=utf8mb4&parseTime=True")
+	// tip 时区问题已经解决，注意是loc=Local，后面的Local是要大写的！！！
+	db, err := gorm.Open("mysql", "root:666666@(localhost:3306)/db1?charset=utf8mb4&parseTime=True&loc=Local")
 	if err != nil {
 		// tip 这段代码还有点不懂
 		panic(err)
